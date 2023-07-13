@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Quản lý tài khoản</title>
+</head>
+<body>
+<div th:replace="admin/template/header"></div>
+<div th:replace="admin/template/sidebar"></div>
+
+<div class="col-md-9 animated bounce">
+	<h3 class="page-header">Quản lý Tài khoản</h3>
+
+	<button class="btn btn-success btnThemTaiKhoan">Thêm mới tài khoản</button><hr>
+	<div class="form-group form-inline">
+		<label for="sel1"><strong>Lọc tài khoản:</strong> </label>
+		<select id="vaiTro" class="form-control">
+			<option th:each="vaiTro : ${listVaiTro}" th:value="${vaiTro.tenVaiTro}" th:text="${vaiTro.tenVaiTro}"></option>
+		</select>
+	</div>
+	<hr>
+
+	<table class="table table-hover taiKhoanTable" style="text-align: center;">
+		<thead>
+		<tr>
+			<th>Mã ND</th>
+			<th>Họ tên</th>
+			<th>Email</th>
+			<th>Số điện thoại</th>
+			<th>Địa chỉ</th>
+			<th>Vai trò</th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>
+
+<div class="row col-md-6">
+	<form class="taiKhoanForm" id="form">
+		<div>
+			<div class="modal fade" id="taiKhoanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+				 aria-hidden="true" data-backdrop="static" data-keyboard="false">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Tạo mới tài khoản</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="name">Email</label>
+								<input type="email" class="form-control" name="email" required="required" />
+							</div>
+							<div class="form-group">
+								<label for="name">Mật khẩu:(8-32 ký tự)</label>
+								<input type="password" class="form-control" name="password" required="required" />
+							</div>
+							<div class="form-group">
+								<label for="name">Nhắc lại mật khẩu:</label>
+								<input type="password" class="form-control" name="confirmPassword" required="required" />
+							</div>
+
+							<div class="form-group">
+								<label for="name">Chọn vai trò:</label>
+								<div th:each="vaiTro : ${listVaiTro}">
+									<label class="radio-inline">
+										<input type="radio" name="tenVaiTro" th:value="${vaiTro.tenVaiTro}" checked="checked"
+											   th:text="${vaiTro.tenVaiTro}" />
+									</label>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="name">Họ tên:</label>
+								<input type="text" class="form-control" name="hoTen" required="required" />
+							</div>
+							<div class="form-group">
+								<label for="name">Số điện thoại:</label>
+								<input type="text" class="form-control" name="sdt" required="required" />
+							</div>
+							<div class="form-group">
+								<label for="name">Địa chỉ:</label>
+								<input type="text" class="form-control" name="diaChi" required="required" />
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+								<input class="btn btn-primary" id="btnSubmit" type="button" value="Xác nhận" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div th:replace="admin/template/footer"></div>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/2.9.0/jquery.serializejson.js}"></script>
+<script th:src="@{/js/taiKhoanAjax.js}"></script>
+</body>
+</html>

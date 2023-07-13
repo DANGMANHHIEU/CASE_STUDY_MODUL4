@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="Frontend/css/cartTable.css">
+	<style>
+		html {
+			font-size: 100%;
+		}
+	</style>
+</head>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".table-convert-price .covertPriceProduct").each(function() {
+			var value = accounting.formatMoney($(this).text()) + ' VND';
+			$(this).html(value);
+		});
+		$(".table-convert-price .total").each(function() {
+			var value = accounting.formatMoney($(this).text());
+			$(this).html(value);
+		});
+	});
+</script>
+<body>
+<br>
+<br>
+<div class="container">
+	<div class="row">
+		<h2 style="">QUẢN LÝ GIỎ HÀNG</h2> <br>
+		<div class="col-10">
+			<table class="table-cart-checkout mytable table-convert-price">
+				<tr>
+					<td>STT</td>
+					<td>Ảnh</td>
+					<td>Tên sản phẩm</td>
+					<td>Đơn giá</td>
+					<td>Số lượng</td>
+					<td>Tổng</td>
+					<td>Xóa</td>
+				</tr>
+				<tr th:each="sanpham, loop : ${cart}" th:id="'item' + ${sanpham.id}" class="cart_line">
+					<td th:text="${loop.index + 1}"></td>
+					<td><img th:src="@{/img/__${sanpham.id}__.png}" style="width: 150px" class="cart-img"></td>
+					<td style="text-align: center; mergin-top: -52px;">
+						<p class="cart_ten"><a th:href="@{/sp(id=${sanpham.id})}"><span th:text="${sanpham.tenSanPham}"></span></a></p>
+						<p class="cart_masanpham">Mã sản phẩm : <span th:text="${sanpham.id}"></span></p>
+<!--						<p class="">Bảo hành : <span th:text="${sanpham.thongTinBaoHanh}"></span></p>-->
+					</td>
+					<td class="covertPriceProduct" th:text="${sanpham.donGia}"></td>
+					<td>
+						<input class="input_num_cart" type="number" th:value="${quanity[sanpham.id]}" min="1" th:onchange="'changeQuanity(' + ${sanpham.id} + ', this.value, ' + ${sanpham.donGia} + ')'">
+					</td>
+					<td><b><span class="total" th:id="'item'+${sanpham.id}+'_total'" name="total_price" th:text="${sanpham.donGia} * ${quanity[sanpham.id]}"></span> VND</b></td>
+					<td class="cart-img">
+						<a class="btn btn-danger" th:onclick="'deleteFromCart('+${sanpham.id}+')'"><span class="glyphicon glyphicon-trash"></span></a>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3" th:if="${checkEmpty != 0}">
+						<a class="btn btn-primary" th:href="@{/}"><span class="glyphicon glyphicon-hand-left"></span> Mua thêm sản phẩm khác</a>
+						&nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+						<a class="btn btn-warning " th:href="@{/checkout}"><span class="glyphicon glyphicon-check"></span> Thanh toán</a>
+					</td>
+					<td colspan="3" th:if="${checkEmpty == 0}">
+						<a class="btn btn-primary" th:href="@{/}">Mua thêm sản phẩm khác</a>
+					</td>
+					<td colspan="4">
+						<p class="cart_tongdonhang">Tổng giá trị đơn hàng : <span id="ordertotal"></span> VND</p>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-xs-1"></div>
+	</div>
+</div>
+<script th:src="@{/js/client/cartAjax.js}"></script>
+</body>
+</html>

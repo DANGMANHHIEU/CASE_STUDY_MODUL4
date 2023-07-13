@@ -1,0 +1,190 @@
+<head>
+<link rel="stylesheet" href="Frontend/css/searchResult.css">
+<script src="Frontend/js/jquery.min.js"></script>
+<script src="Frontend/js/responsiveslides.min.js"></script>
+<script src="js/client/accounting.js"></script>
+	<script th:src="@{/js/client/store.js}" ></script>
+</head>
+
+<script type="text/javascript">	  
+	$(document).ready(function() { 
+		 $(".grid_1_of_4 .changeToVND").each(function() {
+			  var value = accounting.formatMoney($(this).text())+ ' VND';
+			  $(this).html(value);
+			});
+		
+		 
+	  });
+	</script>
+
+
+
+
+<body>
+	<div class="clear"> </div>
+	<div class="wrap">
+		    <div class="content">
+		    <div class="content-grids">
+
+				<div th:if="${list.size() == 0}" class="section group">
+					<h4>Không tìm thấy kết quả nào</h4>
+				</div>
+				<div th:each="sanpham, loop : ${list}" class="section group">
+					<div th:if="${loop.index != list.size() - 1}">
+						<div th:if="${loop.index % 4 == 0}" class="grid_1_of_4 images_1_of_4 products-info"
+							 style="width: 232px; height: 400px;">
+							<a th:href="@{'sp?id=' + ${sanpham.id}}">
+								<img style="width: 225px; height: 230px" th:src="@{'/img/' + ${sanpham.id} + '.png'}">
+								<h3 style="font-weight: bold; height: 43.2px" th:text="${sanpham.tenSanPham}"></h3>
+							</a>
+							<h3 class="changeToVND" th:text="${sanpham.donGia}"></h3>
+							<button th:onclick="'addToCart(' + ${sanpham.id} + ')'" class="btn btn-warning">
+								<span class="glyphicon glyphicon-shopping-cart pull-center"></span> Giỏ hàng
+							</button>
+							<h3></h3>
+						</div>
+						<div th:if="${loop.index % 4 == 3}" class="grid_1_of_4 images_1_of_4 products-info"
+							 style="width: 232px; height: 400px;">
+							<a th:href="@{'sp?id=' + ${sanpham.id}}">
+								<img style="width: 225px; height: 230px" th:src="@{'/img/' + ${sanpham.id} + '.png'}">
+								<h3 style="font-weight: bold;height: 44px" th:text="${sanpham.tenSanPham}"></h3>
+							</a>
+							<h3 class="changeToVND" th:text="${sanpham.donGia}"></h3>
+							<button th:onclick="'addToCart(' + ${sanpham.id} + ')'" class="btn btn-warning">
+								<span class="glyphicon glyphicon-shopping-cart pull-center"></span> Giỏ hàng
+							</button>
+							<h3></h3>
+						</div>
+						<div th:if="${loop.index % 4 != 0 && loop.index % 4 != 3}"
+							 class="grid_1_of_4 images_1_of_4 products-info" style="width: 232px; height: 400px;">
+							<a th:href="@{'sp?id=' + ${sanpham.id}}">
+								<img style="width: 225px; height: 230px" th:src="@{'/img/' + ${sanpham.id} + '.png'}">
+								<h3 style="font-weight: bold;height: 44px" th:text="${sanpham.tenSanPham}"></h3>
+							</a>
+							<h3 class="changeToVND" th:text="${sanpham.donGia}"></h3>
+							<button th:onclick="'addToCart(' + ${sanpham.id} + ')'" class="btn btn-warning">
+								<span class="glyphicon glyphicon-shopping-cart pull-center"></span> Giỏ hàng
+							</button>
+							<h3></h3>
+						</div>
+					</div>
+					<div th:if="${loop.index == list.size() - 1}">
+						<div th:if="${loop.index % 4 == 0}" class="section group">
+							<div class="grid_1_of_4 images_1_of_4 products-info" style="width: 232px; height: 400px;">
+								<a th:href="@{'sp?id=' + ${sanpham.id}}">
+									<img style="width: 225px; height: 230px"
+										 th:src="@{'/img/' + ${sanpham.id} + '.png'}">
+									<h3 style="font-weight: bold;height: 44px" th:text="${sanpham.tenSanPham}"></h3>
+								</a>
+								<h3 class="changeToVND" th:text="${sanpham.donGia}"></h3>
+								<button th:onclick="'addToCart(' + ${sanpham.id} + ')'" class="btn btn-warning">
+									<span class="glyphicon glyphicon-shopping-cart pull-center"></span> Giỏ hàng
+								</button>
+								<h3></h3>
+							</div>
+						</div>
+						<div th:if="${loop.index % 4 != 0}" class="grid_1_of_4 images_1_of_4 products-info"
+							 style="width: 232px; height: 400px;">
+							<a th:href="@{'sp?id=' + ${sanpham.id}}">
+								<img style="width: 225px; height: 230px" th:src="@{'/img/' + ${sanpham.id} + '.png'}">
+								<h3 style="font-weight: bold;height: 44px" th:text="${sanpham.tenSanPham}"></h3>
+							</a>
+							<h3 class="changeToVND" th:text="${sanpham.donGia}"></h3>
+							<button th:onclick="'addToCart(' + ${sanpham.id} + ')'" class="btn btn-warning">
+								<span class="glyphicon glyphicon-shopping-cart pull-center"></span> Giỏ hàng
+							</button>
+							<h3></h3>
+						</div>
+					</div>
+				</div>
+				<div th:if="${list.size() != 0}" class="paging">
+					<a th:if="${currentPage != 1}"
+					   th:href="@{/store(page=${currentPage-1}, range=${range}, brand=${brand}, manufactor=${manufactor}, os=${os}, ram=${ram}, pin=${pin})}">
+						Back
+					</a>
+					<a th:if="${currentPage == 1}" class="current">1</a>
+					<a th:if="${currentPage != 1}"
+					   th:href="@{/store(page=1, range=${range}, brand=${brand}, manufactor=${manufactor}, os=${os}, ram=${ram}, pin=${pin})}">
+						1
+					</a>
+
+					<span th:each="pag : ${pageList}">
+						<a th:if="${currentPage == pag}" class="current" th:text="${pag}"></a>
+						<a th:if="${currentPage != pag}"
+						   th:href="@{/store(page=${pag}, range=${range}, brand=${brand}, manufactor=${manufactor}, os=${os}, ram=${ram}, pin=${pin})}"
+						   th:text="${pag}">
+						</a>
+					</span>
+
+					<a th:if="${currentPage != totalPage}"
+					   th:href="@{/store(page=${currentPage+1}, range=${range}, brand=${brand}, manufactor=${manufactor}, os=${os}, ram=${ram}, pin=${pin})}">
+						Next
+					</a>
+				</div>
+			</div>
+
+
+		    	</div>
+		    	<div class="content-sidebar">
+		    		<h4>Lọc sản phẩm</h4>		    			
+						<form>
+						<input type="hidden" name="name" th:value="${name}">
+        				<p>Mức giá</p>
+        				<div class="select-range">
+        					<select name="range" class="form-control">
+        						<option value="">Tất cả giá</option>
+								<option th:value="duoi-2-tram">Dưới 200</option>
+								<option th:value="2-tram-den-4-tram">200 - 400</option>
+								<option th:value="4-tram-den-6-tram">400 - 600</option>
+								<option th:value="6-tram-den-10-tram">600 - 1000</option>
+								<option th:value="tren-10-tram">Trên 1000</option>
+        					</select>
+        				</div>   				
+<!--        				<p>Hãng sản xuất</p>-->
+<!--							<div class="select-range">-->
+<!--								<select name="manufactor" class="form-control">-->
+<!--									<option value="">Tất cả nhà sản xuất</option>-->
+<!--									<option th:each="manufactor : ${hangsx}" th:value="${manufactor}" th:text="${manufactor}"></option>-->
+<!--								</select>-->
+<!--							</div>-->
+<!--							<th:block th:if="${brand == 'Laptop'}">-->
+<!--								<p>Hệ điều hành</p>-->
+<!--								<div class="select-range">-->
+<!--									<select name="os" class="form-control">-->
+<!--										<option value="">Tất cả hệ điều hành</option>-->
+<!--										<option value="ubuntu">Ubuntu</option>-->
+<!--										<option value="dos">DOS</option>-->
+<!--										<option value="mac">MAC</option>-->
+<!--										<option value="linux">Linux</option>-->
+<!--										<option value="windows 10">Window 10</option>-->
+<!--									</select>-->
+<!--								</div>-->
+<!--								<p>RAM</p>-->
+<!--								<div class="select-range">-->
+<!--									<select name="ram" class="form-control">-->
+<!--										<option value="">Tất cả ram</option>-->
+<!--										<option value="2 GB">2 GB</option>-->
+<!--										<option value="3 GB">3 GB</option>-->
+<!--										<option value="4 GB">4 GB</option>-->
+<!--										<option value="6 GB">6 GB</option>-->
+<!--										<option value="8 GB">8 GB</option>-->
+<!--										<option value="16 GB">16 GB</option>-->
+<!--									</select>-->
+<!--								</div>-->
+<!--								<p>Pin</p>-->
+<!--								<div class="select-range">-->
+<!--									<select name="pin" class="form-control">-->
+<!--										<option value="">Tất cả pin</option>-->
+<!--										<option th:each="manufactor : ${pinSet}" th:value="${manufactor}" th:text="${manufactor}"></option>-->
+<!--									</select>-->
+<!--								</div>-->
+<!--							</th:block>-->
+							<input type="hidden" name="brand" th:value="${brand}">
+        					<input class="search-submit" type="submit" value="Lọc sản phẩm">
+						</form>
+						
+		    	</div>
+		    </div>
+	<div class="clear"> </div>
+</body>
+</html>

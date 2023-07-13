@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="Frontend/css/style.css" rel="stylesheet" type="text/css"
+          media="all"/>
+    <link
+            href='//fonts.googleapis.com/css?family=Londrina+Solid|Coda+Caption:800|Open+Sans'
+            rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="Frontend/css/responsiveslides.css">
+    <script src="Frontend/js/jquery.min.js"></script>
+    <script src="Frontend/js/responsiveslides.min.js"></script>
+    <script src="js/client/accounting.js"></script>
+
+    <script
+            src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+    <script th:inline="javascript">
+        // You can also use "$(window).load(function() {"
+        $(function () {
+
+            // Slideshow 1
+            $("#slider1").responsiveSlides({
+                maxwidth: 1600,
+                speed: 600
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <!----start-Header---->
+    <div class="header">
+        <div class="search-bar">
+            <form action="/search">
+                <input type="text" th:name="name"><input type="submit"
+                                                      value="Search"/>
+            </form>
+        </div>
+        <div class="clear"></div>
+        <div class="header-top-nav ">
+            <div th:if="${#request.getUserPrincipal() != null}">
+                <ul>
+                    <li>Xin chào: <span th:text="${loggedInUser.hoTen}"></span></li>
+                    <li><a th:href="@{/account}">Tài khoản</a></li>
+                    <li><a th:href="@{/cart}"><span>Giỏ hàng&nbsp;&nbsp;:</span></a><span
+                            class="glyphicon glyphicon-shopping-cart"></span></li>
+                    <li><a th:href="@{/logout}">Đăng xuất</a></li>
+                </ul>
+            </div>
+            <div th:unless="${#request.getUserPrincipal() != null}">
+                <ul>
+                    <li><a th:href="@{/register}">Đăng kí</a></li>
+                    <li><a th:href="@{/login}">Đăng nhập</a></li>
+                    <li><a th:href="@{/cart}"><span>Giỏ hàng&nbsp;&nbsp;&nbsp;</span></a><span
+                            class="glyphicon glyphicon-shopping-cart"></span></li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="clear"></div>
+<div class="top-header">
+    <div class="wrap">
+        <!----start-logo---->
+        <div class="logo">
+            <a href="/"><img th:src="@{/Frontend/img/logo3.png}" title="logo"/></a>
+        </div>
+        <!----end-logo---->
+        <!----start-top-nav---->
+        <div class="top-nav">
+            <ul>
+                <li><a href="/">Trang chủ</a></li>
+<!--                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Cửa hàng <span-->
+<!--                        class="caret"></span></a>-->
+                    <ul class="dropdown-menu" style="background: #94cb32" id="danhmuc2">
+                    </ul>
+                </li>
+<!--                <li><a href="/shipping">Miễn phí vận chuyển</a></li>-->
+<!--                <li><a href="/guarantee">Bảo hành tận nơi</a></li>-->
+                <li><a href="/contact">Liên hệ</a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<!----End-top-nav---->
+<!----End-Header---->
+
+<script th:src="@{/js/client/header.js}"></script>

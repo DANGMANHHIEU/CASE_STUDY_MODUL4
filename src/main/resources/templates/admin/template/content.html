@@ -1,0 +1,21 @@
+<div class="col-md-9 animated bounce">
+    <h3 class="page-header">Danh sách công việc</h3>
+    <div th:if="${listCongViec.soDonHangMoi > 0}">
+        <p>Bạn có:
+            <a th:href="@{/admin/don-hang}"><span th:text="${listCongViec.soDonHangMoi}"></span> đơn hàng mới</a>
+        </p>
+    </div>
+
+    <div th:if="${listCongViec.soDonhangChoDuyet > 0}">
+        <p>Bạn có:
+            <a th:href="@{/admin/don-hang}"><span th:text="${listCongViec.soDonhangChoDuyet}"></span> đơn hàng chờ duyệt</a>
+        </p>
+    </div>
+
+    <div th:if="${listCongViec.soLienHeMoi > 0}">
+        <p>Bạn có:
+            <a th:href="@{/admin/lien-he}"><span th:text="${listCongViec.soLienHeMoi}"></span> liên hệ mới</a>
+        </p>
+    </div>
+</div>
+</div>

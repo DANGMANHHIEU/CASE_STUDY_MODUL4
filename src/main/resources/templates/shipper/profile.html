@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Thông tin cá nhân</title>
+	<style>
+		.form-profile input {
+			border: 0;
+		}
+	</style>
+</head>
+<body>
+<div th:replace="shipper/template/header"></div>
+<div th:replace="shipper/template/sidebar"></div>
+
+<div class="col-md-9 animated bounce">
+	<h3 class="page-header">Thông tin cá nhân</h3>
+
+	<button class="btn btn-success btnCapNhatThongTin">Cập nhật thông tin</button>
+	&nbsp;&nbsp;&nbsp;
+	<button class="btn btn-primary btnDoiMatKhau">Đổi mật khẩu</button>
+	<hr />
+
+	<form class="form-profile">
+
+		<div class="form-group row">
+			<div class="col-sm-10">
+				<input type="hidden" class="form-control-plaintext nguoiDungId" th:value="${user.id}">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="staticEmail" class="col-sm-2 col-form-label">Họ Tên</label>
+			<div class="col-sm-10">
+				<input type="text" readonly class="form-control-plaintext" th:value="${user.hoTen}">
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label for="staticEmail" class="col-sm-2 col-form-label">Email đăng ký</label>
+			<div class="col-sm-10">
+				<input type="text" readonly class="form-control-plaintext" th:value="${user.email}">
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label for="staticEmail" class="col-sm-2 col-form-label">Số điện thoại</label>
+			<div class="col-sm-10">
+				<input type="text" readonly class="form-control-plaintext" th:value="${user.soDienThoai}">
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label for="staticEmail" class="col-sm-2 col-form-label">Địa chỉ</label>
+			<div class="col-sm-10">
+				<input type="text" readonly class="form-control-plaintext" th:value="${user.diaChi}">
+			</div>
+		</div>
+	</form>
+</div>
+
+<div class="row col-md-6">
+	<form class="formCapNhat" th:action="@{/shipper/profile/update}" method="post">
+		<div>
+			<div class="modal fade" id="capNhatModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Cập nhật thông tin cá nhân</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<input type="hidden" name="${_csrf.parameterName}" th:value="${_csrf.token}" th:if="${_csrf != null}"/>
+							<div class="form-group">
+								<input type="hidden" class="form-control" name="id" th:value="${user.id}" />
+							</div>
+							<div class="form-group">
+								<label for="name">Họ tên</label>
+								<input type="text" class="form-control" name="hoTen" required="required" />
+							</div>
+							<div class="form-group">
+								<label for="name">Số điện thoại</label>
+								<input type="text" class="form-control" name="soDienThoai" required="required" />
+							</div>
+							<div class="form-group">
+								<label for="name">Địa chỉ</label>
+								<input type="text" class="form-control" name="diaChi" required="required" />
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+								<input class="btn btn-primary" id="btnSubmit" type="submit" value="Xác nhận" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<form class="formDoiMatKhau">
+		<div>
+			<div class="modal fade" id="doiMKModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Đổi mật khẩu</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div>
+								<input type="hidden" name="${_csrf.parameterName}" th:value="${_csrf.token}" th:if="${_csrf != null}"/>
+							</div>
+							<div class="form-group">
+								<label for="name">Mật khẩu cũ</label>
+								<input type="password" class="form-control" name="oldPassword" required="required" />
+							</div>
+							<div class="form-group">
+								<label for="name">Mật khẩu mới</label>
+								<input type="password" class="form-control" name="newPassword" required="required" />
+							</div>
+							<div class="form-group">
+								<label for="name">Nhắc lại mật khẩu mới</label>
+								<input type="password" class="form-control" name="confirmNewPassword" required="required" />
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+								<input class="btn btn-primary" type="button" id="btnXacNhanDoiMK" value="Xác nhận" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div th:replace="shipper/template/footer"></div>
+<script th:src="@{/js/shipper/profileShipperAjax.js}"></script>
+</body>
+</html>

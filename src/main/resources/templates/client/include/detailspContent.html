@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Chi tiết sản phẩm</title>
+	<link rel="stylesheet" href="Frontend/css/detailsp.css">
+</head>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var priceConvert = accounting.formatMoney([[${sp.getDonGia()}]])+' VND';
+			document.getElementById("priceConvert").innerHTML= priceConvert;
+
+		});
+	</script>
+<body>
+<div class="container">
+	<div class="card">
+		<div class="container-fliud">
+			<div class="wrapper row">
+				<div class="preview col-md-6">
+
+					<div class="preview-pic tab-content">
+						<div class="tab-pane active" id="pic-1"><img th:src="@{/img/{id}.png(id=${sp.getId()})}" /></div>
+					</div>
+				</div>
+				<div class="details col-md-6">
+					<p style="display:none" th:text="${sp.getId()}" id="spid"></p>
+					<h2 class="product-title" th:text="${sp.getTenSanPham()}"></h2>
+					<h4 class="price">Mô tả sản phẩm</h4>
+<!--					<div th:if="${sp.getCpu().length() > 0}">-->
+<!--						<p class="product-description">CPU: <span th:text="${sp.getCpu()}"></span></p>-->
+<!--					</div>-->
+<!--					<div th:if="${sp.getRam().length() > 0}">-->
+<!--						<p class="product-description">RAM: <span th:text="${sp.getRam()}"></span></p>-->
+<!--					</div>-->
+<!--					<div th:if="${sp.getThietKe().length() > 0}">-->
+<!--						<p class="product-description">Thiết kế: <span th:text="${sp.getThietKe()}"></span></p>-->
+<!--					</div>-->
+<!--					<div th:if="${sp.getHeDieuHanh().length() > 0}">-->
+<!--						<p class="product-description">Hệ điều hành: <span th:text="${sp.getHeDieuHanh()}"></span></p>-->
+<!--					</div>-->
+<!--					<div th:if="${sp.getManHinh().length() > 0}">-->
+<!--						<p class="product-description">Màn hình: <span th:text="${sp.getManHinh()}"></span></p>-->
+<!--					</div>-->
+<!--					<div th:if="${sp.getDungLuongPin().length() > 0}">-->
+<!--						<p class="product-description">Dung lượng pin: <span th:text="${sp.getDungLuongPin()}"></span></p>-->
+<!--					</div>-->
+					<p class="product-description">Hãng sản xuất: <span th:text="${sp.hangSanXuat.tenHangSanXuat}"></span></p>
+					<p class="product-description"><span class="important">THÔNG TIN CHUNG:</span> <span th:text="${sp.getThongTinChung()}"></span></p>
+<!--					<p class="product-description"><span class="important">BẢO HÀNH:</span> <span th:text="${sp.getThongTinBaoHanh()}"></span></p>-->
+					<h4 class="price" id="blabla">Giá bán: <span id="priceConvert"></span></h4>
+					<div class="action">
+						<button class="add-to-cart btn btn-warning" type="button">
+							<span class="glyphicon glyphicon-shopping-cart pull-center"></span> Giỏ hàng</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script th:src="@{/js/client/detailspAjax.js}"></script>
+</html>
